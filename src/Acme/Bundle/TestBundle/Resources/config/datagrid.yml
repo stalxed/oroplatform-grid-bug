@@ -1,0 +1,50 @@
+datagrid:
+    countries-grid:
+        source:
+            type: orm
+            query:
+                select:
+                    - country.iso2Code
+                    - country.iso3Code
+                    - country.name
+                from:
+                    - { table: Oro\Bundle\AddressBundle\Entity\Country, alias: country }
+        columns:
+            iso2Code:
+                label: iso2Code
+            iso3Code:
+                label: iso3Code
+            name:
+                label: name
+        sorters:
+            columns:
+                iso2Code:
+                    data_name: country.iso2Code
+                iso3Code:
+                    data_name: country.iso3Code
+                name:
+                    data_name: country.name
+            default:
+                iso2Code: ASC
+        filters:
+            columns:
+                iso2Code:
+                    type: string
+                    data_name: country.iso2Code
+                iso3Code:
+                    type: string
+                    data_name: country.iso3Code
+                name:
+                    type: string
+                    data_name: country.name
+        properties:
+            delete_link:
+                type: url
+                route: acme_api_rest_country_delete
+                params: [ iso2Code ]
+        actions:
+            delete:
+                type: delete
+                label: delete
+                icon: trash
+                link: delete_link
